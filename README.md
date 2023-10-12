@@ -80,3 +80,81 @@ As principais anotações de validação usadas no código são:
 
 ## Conclusões ao final da aula 1:
 ![Project UML](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/documentation/imgDatabaseH2Aula1.png)
+
+---  
+
+# Services do sistema Nota-Compra-Item:
+## Aula 2:
+
+Os serviços a seguir foram criados para possibilitar a manipulação dessas entidades.
+
+### [FornecedorService.java](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/middleware/src/main/java/br/inatel/labs/labjpa/service/FornecedorService.java)
+
+O serviço `FornecedorService` é responsável por lidar com operações relacionadas aos fornecedores. Ele oferece métodos para salvar, buscar, listar e remover fornecedores no banco de dados.
+
+#### Métodos:
+
+- `salvar(Fornecedor f)`: Este método permite salvar ou atualizar um fornecedor no banco de dados. Se o fornecedor já existe, ele será atualizado; caso contrário, será criado um novo registro.
+
+- `buscarPeloId(Long id)`: Este método busca um fornecedor no banco de dados com base no seu ID e retorna o fornecedor correspondente.
+
+- `listar()`: Este método recupera todos os fornecedores cadastrados no banco de dados e os retorna como uma lista.
+
+- `remover(Fornecedor f)`: Este método remove um fornecedor do banco de dados.
+
+### [NotaCompraService.java](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/middleware/src/main/java/br/inatel/labs/labjpa/service/NotaCompraService.java)
+
+O serviço `NotaCompraService` lida com operações relacionadas às notas de compra e itens de notas de compra. Ele oferece métodos para salvar, buscar, listar e remover notas de compra e seus itens.
+
+#### Métodos
+
+**Nota de Compra:**
+
+- `salvar(NotaCompra nc)`: Salva ou atualiza uma nota de compra no banco de dados.
+
+- `buscarNotaCompraPeloId(Long id)`: Busca uma nota de compra no banco de dados com base no seu ID.
+
+- `listarNotaCompra()`: Recupera todas as notas de compra cadastradas no banco de dados e as retorna como uma lista.
+
+- `remover(NotaCompra nc)`: Remove uma nota de compra do banco de dados.
+
+**Item de Nota de Compra:**
+
+- `salvarNotaCompraItem(NotaCompraItem nci)`: Salva ou atualiza um item de nota de compra no banco de dados.
+
+- `buscarNotaCompraItemPeloId(Long id)`: Busca um item de nota de compra no banco de dados com base no seu ID.
+
+- `listarNotaCompraItem()`: Recupera todos os itens de nota de compra cadastrados no banco de dados e os retorna como uma lista.
+
+- `remover(NotaCompraItem nci)`: Remove um item de nota de compra do banco de dados.
+
+### [ProdutoService.java](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/middleware/src/main/java/br/inatel/labs/labjpa/service/ProdutoService.java)
+
+O serviço `ProdutoService` é responsável por operações relacionadas aos produtos. Ele oferece métodos para salvar, buscar, listar e remover produtos no banco de dados.
+
+#### Métodos:
+
+- `salvar(Produto p)`: Salva ou atualiza um produto no banco de dados.
+
+- `buscarPeloId(Long id)`: Busca um produto no banco de dados com base no seu ID.
+
+- `listar()`: Recupera todos os produtos cadastrados no banco de dados e os retorna como uma lista.
+
+- `remove(Produto p)`: Remove um produto do banco de dados.
+
+Estes serviços são parte essencial do sistema de gerenciamento de compras e possibilitam a interação com as entidades do sistema, permitindo a criação, consulta, listagem e exclusão de registros no banco de dados. Os serviços estão anotados com `@Service` para que possam ser injetados em outras partes do aplicativo e anotados com `@Transactional` para garantir a consistência e atomicidade das operações no banco de dados.
+
+### Testes do serviço do produto
+![testLoadProduct](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/documentation/testLoadProduct.png)
+
+### Testes do serviço do Fornecedor
+![testLoadFornecedor](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/documentation/testLoadFornecedor.png)
+
+### Testes do serviço do NotaCompra
+![testLoadNotaCompra](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/documentation/testLoadNotaCompra.png)
+
+### Testes do serviço do testLoadNotaCompraItem
+![testLoadNotaCompraItem](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/documentation/testLoadNotaCompraItem.png)
+
+### Testes do salvamento dos itens no mundo relacional
+![testItensSalvos](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/documentation/testItensSalvos.png)
