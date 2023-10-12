@@ -18,6 +18,15 @@ public class Fornecedor {
     @ManyToMany
     private List<Produto> listaProduto;
 
+    public Fornecedor() {
+    
+    }
+
+    public Fornecedor(@NotNull @Size(min = 2, max = 100) String razaoSocial) {
+        super();
+        this.razaoSocial = razaoSocial;
+    }
+
     public Long getId() {
         return id;
     }

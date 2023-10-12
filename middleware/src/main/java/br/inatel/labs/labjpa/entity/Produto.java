@@ -6,7 +6,7 @@ import jakarta.validation.constraints.*;
 
 @Entity
 public class Produto {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,6 +17,15 @@ public class Produto {
 
     @ManyToMany(mappedBy = "listaProduto")
     private List<Fornecedor> listaFornecedor;
+
+    public Produto() {
+
+    }
+
+    public Produto(@NotNull @Size(min = 2, max = 100) String descricao) {
+        super();
+        this.descricao = descricao;
+    }
 
     public Long getId() {
         return id;

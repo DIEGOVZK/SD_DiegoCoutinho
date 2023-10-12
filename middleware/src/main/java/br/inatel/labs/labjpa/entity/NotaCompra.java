@@ -7,6 +7,7 @@ import java.util.List;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
+@Entity
 public class NotaCompra {
 
     @Id
@@ -22,6 +23,16 @@ public class NotaCompra {
 
     @OneToMany(mappedBy = "notaCompra")
     private List<NotaCompraItem> listaNotaCompraItem;
+
+    public NotaCompra() {
+
+    }
+
+    public NotaCompra(@NotNull @Past LocalDate dataEmissao, Fornecedor fornecedor) {
+        super();
+        this.fornecedor = fornecedor;
+        this.dataEmissao = dataEmissao;
+    }
 
     /**
      * Calculates the total value of the purchase note.

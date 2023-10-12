@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
+@Entity
 public class NotaCompraItem {
 
     @Id
@@ -24,8 +25,21 @@ public class NotaCompraItem {
     @Positive
     private BigDecimal valorCompraProduto;
 
+    public NotaCompraItem() {
+
+    }
+
+    public NotaCompraItem(NotaCompra notaCompra, Produto produto, BigDecimal valorCompraProduto, Integer quantidade) {
+        this.notaCompra = notaCompra;
+        this.produto = produto;
+        this.valorCompraProduto = valorCompraProduto;
+        this.quantidade = quantidade;
+    }
+
     /**
-     * Calculates the total value of a purchase item by multiplying the purchase product value by its quantity.
+     * Calculates the total value of a purchase item by multiplying the purchase
+     * product value by its quantity.
+     * 
      * @return the total value of the purchase item as a BigDecimal.
      */
     public BigDecimal getCalculoTotal() {
@@ -74,8 +88,10 @@ public class NotaCompraItem {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         NotaCompraItem item = (NotaCompraItem) o;
         return id.equals(item.id);
     }
