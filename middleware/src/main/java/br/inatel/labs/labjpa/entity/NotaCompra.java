@@ -47,6 +47,14 @@ public class NotaCompra {
         return total;
     }
 
+    /**
+     * Returns the list of NotaCompraItem objects associated with this NotaCompra.
+     * @return the list of NotaCompraItem objects associated with this NotaCompra.
+     */
+    public List<NotaCompraItem> listaNotaCompraItem() {
+        return listaNotaCompraItem;
+    }
+
     public Long getId() {
         return id;
     }
