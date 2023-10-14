@@ -17,57 +17,57 @@ public class LoadingDemo {
     @Autowired
     private NotaCompraService service;
 
-    @Test
-    public void demoEagerLoading() {
+    // @Test
+    // public void demoEagerLoading() {
 
-        try {
+    //     try {
 
-            NotaCompraItem item = service.buscarNotaCompraItemPeloId(1L);
-            LocalDate dataEmissao = item.getNotaCompra().getDataEmissao();
+    //         NotaCompraItem item = service.buscarNotaCompraItemPeloId(1L);
+    //         LocalDate dataEmissao = item.getNotaCompra().getDataEmissao();
 
-            System.out.println(dataEmissao);
-            System.out.println("Aconteceu o carregamento EAGER");
+    //         System.out.println(dataEmissao);
+    //         System.out.println("Aconteceu o carregamento EAGER");
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
+    //     }
 
-    }
+    // }
 
-    @Test
-    public void lazyLoading() {
+    // @Test
+    // public void lazyLoading() {
 
-        try {
+    //     try {
 
-            NotaCompra nota = service.buscarNotaCompraPeloId(1L);
-            List<NotaCompraItem> listaNotaCompraItem = nota.listaNotaCompraItem();
-            int tamanho = listaNotaCompraItem.size();
+    //         NotaCompra nota = service.buscarNotaCompraPeloId(1L);
+    //         List<NotaCompraItem> listaNotaCompraItem = nota.listaNotaCompraItem();
+    //         int tamanho = listaNotaCompraItem.size();
 
-            System.out.println(tamanho);
+    //         System.out.println(tamanho);
 
-        } catch (Exception e) {
-            System.out.println("O carregamento foi LAZY");
-            e.printStackTrace();
-        }
+    //     } catch (Exception e) {
+    //         System.out.println("O carregamento foi LAZY");
+    //         e.printStackTrace();
+    //     }
 
-    }
+    // }
 
-    @Test
-    public void lazyLoadingPlanejado() {
+    // @Test
+    // public void lazyLoadingPlanejado() {
 
-        try {
+    //     try {
 
-            NotaCompra nota = service.buscarNotaCompraPeloIdComListaItem(1L);
-            List<NotaCompraItem> listaNotaCompraItem = nota.listaNotaCompraItem();
-            int tamanho = listaNotaCompraItem.size();
+    //         NotaCompra nota = service.buscarNotaCompraPeloIdComListaItem(1L);
+    //         List<NotaCompraItem> listaNotaCompraItem = nota.listaNotaCompraItem();
+    //         int tamanho = listaNotaCompraItem.size();
 
-            System.out.println(tamanho);
-            System.out.println("O carregamento ocorreu normalmente");
+    //         System.out.println(tamanho);
+    //         System.out.println("O carregamento ocorreu normalmente");
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
+    //     }
 
-    }
+    // }
 
 }

@@ -1,38 +1,38 @@
 package br.inatel.labs.labjpa.service;
 
 import java.util.List;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.inatel.labs.labjpa.entity.Fornecedor;
+import br.inatel.labs.labjpa.repository.FornecedorRepository;
 
 @Service
 @Transactional
 public class FornecedorService {
-    
-    @PersistenceContext
-    private EntityManager em;
+
+    @Autowired
+    private FornecedorRepository repository;
 
     public Fornecedor salvar(Fornecedor f) {
-        f = em.merge(f);
+        f = repository.save(f);
         return f;
     }
 
-    public Fornecedor buscarPeloId(Long id) {
-        Fornecedor f = em.find(Fornecedor.class, id);
-        return f;
+    public Optional<Fornecedor> buscarPeloId(Long id) {
+        return repository.findById(id);
     }
 
     public List<Fornecedor> listar() {
-        List<Fornecedor> listaFornecedor = em.createQuery("SELECT f from Fornecedor f", Fornecedor.class).getResultList();
+        List<Fornecedor> listaFornecedor = repository.findAll();
         return listaFornecedor;
     }
 
     public void remover(Fornecedor f) {
-        f = em.merge(f);
-        em.remove(f);
+        repository.delete(f);
     }
 
 }
