@@ -235,3 +235,75 @@ No arquivo `Fornecedor.java`, foi adicionada uma relação de 1:1 com a entidade
 
 ### Teste do PrePersist para geração do UUID automático
 ![testLoadProduct](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/documentation/testPrePersist.png)
+
+--- 
+
+# Uso de DTO e Repositories managed by JPA:
+## Aula 4:
+
+O código inclui definições de repositórios que interagem com entidades do banco de dados, bem como um DTO para representar o resultado de consultas personalizadas.
+
+### [TotalCompradoPorFornecedor.java (DTO)](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/middleware/src/main/java/br/inatel/labs/labjpa/dto/TotalCompradoPorFornecedor.java)
+
+Este arquivo representa um **DTO (Data Transfer Object)** chamado `TotalCompradoPorFornecedor`, que é usado para representar os resultados de consultas personalizadas. Este DTO possui dois atributos: `fornecedorRazaoSocial` e `totalComprado`.
+
+- `fornecedorRazaoSocial` (String): Representa a razão social de um fornecedor.
+- `totalComprado` (BigDecimal): Representa o valor total comprado por esse fornecedor.
+
+Este DTO é útil para encapsular informações específicas de consultas e transmiti-las para outras partes do sistema de forma organizada.
+
+### [FornecedorRepository.java](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/middleware/src/main/java/br/inatel/labs/labjpa/repository/FornecedorRepository.java)
+
+Este arquivo representa o repositório da entidade `Fornecedor`. O repositório é uma interface que estende a interface `JpaRepository`. Ele define métodos para realizar operações de CRUD (Create, Read, Update, Delete) relacionadas à entidade `Fornecedor`.
+
+### [NotaCompraItemRepository.java](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/middleware/src/main/java/br/inatel/labs/labjpa/repository/NotaCompraItemRepository.java)
+
+Este arquivo representa o repositório da entidade `NotaCompraItem`. Da mesma forma que o `FornecedorRepository`, este repositório estende a interface `JpaRepository` e oferece métodos para manipular a entidade `NotaCompraItem` no banco de dados.
+
+### [NotaCompraRepository.java](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/middleware/src/main/java/br/inatel/labs/labjpa/repository/NotaCompraRepository.java)
+
+Este arquivo representa o repositório da entidade `NotaCompra`. Ele também estende a interface `JpaRepository` e fornece métodos para gerenciar a entidade `NotaCompra` no banco de dados.
+
+### [ProdutoRepository.java](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/middleware/src/main/java/br/inatel/labs/labjpa/repository/ProdutoRepository.java)
+
+Este arquivo representa o repositório da entidade `Produto`. Da mesma forma que os outros repositórios, este estende a interface `JpaRepository` e oferece métodos para realizar operações relacionadas aos produtos no banco de dados.
+
+### [RelatorioRepository.java](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/middleware/src/main/java/br/inatel/labs/labjpa/repository/RelatorioRepository.java)
+
+Este arquivo representa um repositório especializado que estende a interface `JpaRepository`. Ele contém uma consulta personalizada definida pela anotação `@Query`.
+
+#### Método:
+
+- `pesquisarTotalCompradoPorFornecedor()`: Este método realiza uma consulta personalizada para calcular o valor total comprado por fornecedor. Ele utiliza a classe `TotalCompradoPorFornecedor` para encapsular os resultados da consulta, incluindo a razão social do fornecedor e o valor total comprado.
+
+#### Anotações:
+
+- `@Query`: Define uma consulta personalizada usando a linguagem JPQL (Java Persistence Query Language). A consulta calcula o valor total comprado por fornecedor através da soma da quantidade multiplicada pelo valor de compra do item da nota de compra. Os resultados são encapsulados no DTO `TotalCompradoPorFornecedor`.
+
+## Atualização dos Serviços para Utilizar Repositórios JPA
+
+Neste repositório, foram feitas atualizações nos serviços para que eles utilizem os repositórios gerenciados pelo JPA. Isso torna o acesso ao banco de dados mais eficiente e seguro. As principais mudanças foram feitas nos serviços `FornecedorService`, `NotaCompraService`, e `ProdutoService`, além da adição do serviço `RelatorioService`.
+
+### [FornecedorService.java](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/middleware/src/main/java/br/inatel/labs/labjpa/service/FornecedorService.java)
+
+O arquivo `FornecedorService.java` foi atualizado para utilizar o repositório `FornecedorRepository` gerenciado pelo JPA. Agora, as operações relacionadas aos fornecedores, como salvar, buscar, listar e remover, são realizadas através do repositório.
+
+### [NotaCompraService.java](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/middleware/src/main/java/br/inatel/labs/labjpa/service/NotaCompraService.java)
+
+O arquivo `NotaCompraService.java` também foi atualizado para utilizar os repositórios `NotaCompraRepository` e `NotaCompraItemRepository` gerenciados pelo JPA. As operações de CRUD relacionadas a notas de compra e itens de nota de compra são realizadas através desses repositórios.
+
+### [ProdutoService.java](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/middleware/src/main/java/br/inatel/labs/labjpa/service/ProdutoService.java)
+
+No arquivo `ProdutoService.java`, as operações relacionadas aos produtos foram atualizadas para utilizar o repositório `ProdutoRepository`. Isso torna as operações de salvar, buscar, listar e remover produtos mais eficientes e seguras.
+
+### [RelatorioService.java](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/middleware/src/main/java/br/inatel/labs/labjpa/service/RelatorioService.java)
+
+Foi adicionado um novo serviço chamado `RelatorioService`, que utiliza o repositório `RelatorioRepository` gerenciado pelo JPA. Este serviço é responsável por realizar consultas personalizadas para gerar relatórios, como o total comprado por fornecedor. As consultas são definidas no repositório através da anotação `@Query` e os resultados são encapsulados em DTOs, tornando a geração de relatórios mais simples e organizada.
+
+Essas atualizações no projeto tornam o acesso ao banco de dados mais eficiente e organizado, facilitando as operações de CRUD e a geração de relatórios personalizados.
+
+### Testes utilizando DTO
+![testLoadProduct](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/documentation/testDTO.png)
+
+### Testes após a inclusão dos repositórios gerenciados pelo JPA
+![testLoadProduct](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/documentation/testDTORepository.png)
