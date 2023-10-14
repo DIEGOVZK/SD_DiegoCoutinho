@@ -95,11 +95,8 @@ O serviço `FornecedorService` é responsável por lidar com operações relacio
 #### Métodos:
 
 - `salvar(Fornecedor f)`: Este método permite salvar ou atualizar um fornecedor no banco de dados. Se o fornecedor já existe, ele será atualizado; caso contrário, será criado um novo registro.
-
 - `buscarPeloId(Long id)`: Este método busca um fornecedor no banco de dados com base no seu ID e retorna o fornecedor correspondente.
-
 - `listar()`: Este método recupera todos os fornecedores cadastrados no banco de dados e os retorna como uma lista.
-
 - `remover(Fornecedor f)`: Este método remove um fornecedor do banco de dados.
 
 ### [NotaCompraService.java](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/middleware/src/main/java/br/inatel/labs/labjpa/service/NotaCompraService.java)
@@ -111,21 +108,15 @@ O serviço `NotaCompraService` lida com operações relacionadas às notas de co
 **Nota de Compra:**
 
 - `salvar(NotaCompra nc)`: Salva ou atualiza uma nota de compra no banco de dados.
-
 - `buscarNotaCompraPeloId(Long id)`: Busca uma nota de compra no banco de dados com base no seu ID.
-
 - `listarNotaCompra()`: Recupera todas as notas de compra cadastradas no banco de dados e as retorna como uma lista.
-
 - `remover(NotaCompra nc)`: Remove uma nota de compra do banco de dados.
 
 **Item de Nota de Compra:**
 
 - `salvarNotaCompraItem(NotaCompraItem nci)`: Salva ou atualiza um item de nota de compra no banco de dados.
-
 - `buscarNotaCompraItemPeloId(Long id)`: Busca um item de nota de compra no banco de dados com base no seu ID.
-
 - `listarNotaCompraItem()`: Recupera todos os itens de nota de compra cadastrados no banco de dados e os retorna como uma lista.
-
 - `remover(NotaCompraItem nci)`: Remove um item de nota de compra do banco de dados.
 
 ### [ProdutoService.java](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/middleware/src/main/java/br/inatel/labs/labjpa/service/ProdutoService.java)
@@ -135,11 +126,8 @@ O serviço `ProdutoService` é responsável por operações relacionadas aos pro
 #### Métodos:
 
 - `salvar(Produto p)`: Salva ou atualiza um produto no banco de dados.
-
 - `buscarPeloId(Long id)`: Busca um produto no banco de dados com base no seu ID.
-
 - `listar()`: Recupera todos os produtos cadastrados no banco de dados e os retorna como uma lista.
-
 - `remove(Produto p)`: Remove um produto do banco de dados.
 
 Estes serviços são parte essencial do sistema de gerenciamento de compras e possibilitam a interação com as entidades do sistema, permitindo a criação, consulta, listagem e exclusão de registros no banco de dados. Os serviços estão anotados com `@Service` para que possam ser injetados em outras partes do aplicativo e anotados com `@Transactional` para garantir a consistência e atomicidade das operações no banco de dados.
@@ -158,3 +146,92 @@ Estes serviços são parte essencial do sistema de gerenciamento de compras e po
 
 ### Testes do salvamento dos itens no mundo relacional
 ![testItensSalvos](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/documentation/testItensSalvos.png)
+
+---  
+
+# Eager loading & Lazy loading, w/ PrePersist:
+## Aula 3:
+
+O código está contido no arquivo `LoadingDemo.java`, e ele ilustra a diferença entre carregamento "eager" e "lazy" de entidades relacionadas. Além disso, no arquivo `NotaCompraService.java`, foi adicionado um método para possibilitar o carregamento "lazy" planejado.
+
+### [demoEagerLoading()](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/middleware/src/test/java/br/inatel/labs/labjpa/EnderecoTest.java)
+
+Neste método, é demonstrado o carregamento "eager" de entidades. O código faz o seguinte:
+
+- Carrega um item de nota de compra pelo seu ID.
+- Acessa a data de emissão da nota de compra relacionada ao item.
+- Imprime a data de emissão.
+- Exibe a mensagem "Aconteceu o carregamento EAGER".
+
+#### `lazyLoading()`
+
+Neste método, é demonstrado o carregamento "lazy" de entidades. O código faz o seguinte:
+
+- Carrega uma nota de compra pelo seu ID.
+- Obtém a lista de itens de nota de compra relacionados à nota (notaCompraItem) sem forçar o carregamento dos itens.
+- Calcula o tamanho da lista.
+- Imprime o tamanho da lista.
+- Exibe a mensagem "O carregamento foi LAZY".
+
+#### `lazyLoadingPlanejado()`
+
+Neste método, é demonstrado o carregamento "lazy" planejado de entidades. O código faz o seguinte:
+
+- Carrega uma nota de compra pelo seu ID, utilizando um método personalizado `buscarNotaCompraPeloIdComListaItem`.
+- Obtém a lista de itens de nota de compra relacionados à nota sem forçar o carregamento dos itens.
+- Calcula o tamanho da lista.
+- Imprime o tamanho da lista.
+- Exibe a mensagem "O carregamento ocorreu normalmente".
+
+### [Updated: NotaCompraService.java](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/middleware/src/main/java/br/inatel/labs/labjpa/service/NotaCompraService.java)
+
+Para possibilitar o carregamento "lazy" planejado, foi adicionado o método `buscarNotaCompraPeloIdComListaItem` ao serviço `NotaCompraService`. Esse método permite carregar a lista de itens de nota de compra quando necessário, em vez de carregá-la automaticamente.
+
+#### `buscarNotaCompraPeloIdComListaItem(Long id)`
+
+Este método busca uma nota de compra no banco de dados com base no seu ID, mas também carrega a lista de itens de nota de compra associados à nota sem forçar o carregamento. Essa abordagem permite um carregamento mais eficiente das entidades relacionadas, evitando que todas as informações sejam carregadas automaticamente quando a nota de compra é recuperada.
+
+### Teste de carrgeamento Eager
+![testLoadProduct](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/documentation/testEagerLoading.png)
+
+### Teste de carrgeamento Lazy
+![testLoadProduct](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/documentation/testLazyLoadingExeption.png)
+
+### Teste de carrgeamento Lazy (planejado)
+![testLoadProduct](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/documentation/testLazyLoadingWorking.png)
+
+## Uso do PrePersist
+
+### UML atualizado para inclusão da classe Endereco
+![testLoadProduct](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/documentation/sysModelWEndereco.drawio.png)
+
+O código demonstra a criação de uma entidade `Endereco`, um serviço relacionado e uma integração de 1:1 com a entidade `Fornecedor`. Além disso, um teste `EnderecoTest` é apresentado para verificar o funcionamento do `PrePersist` com a geração de UUID.
+
+### [Endereco.java](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/middleware/src/main/java/br/inatel/labs/labjpa/entity/Endereco.java)
+
+O arquivo `Endereco.java` representa a entidade `Endereco`, que é mapeada no banco de dados. Esta entidade contém informações sobre um endereço, incluindo um UUID gerado automaticamente no momento da criação.
+
+#### Atributos:
+
+- `codigo` (String): O código do endereço gerado automaticamente. É uma chave primária.
+- `rua` (String): Nome da rua.
+- `numero` (String): Número da residência.
+- `complemento` (String): Complemento do endereço (opcional).
+- `bairro` (String): Nome do bairro (opcional).
+- `cidade` (String): Nome da cidade.
+- `uf` (String): Sigla do estado (com validação de tamanho máximo de 2).
+
+### [EnderecoService.java](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/middleware/src/main/java/br/inatel/labs/labjpa/service/EnderecoService.java)
+
+O arquivo `EnderecoService.java` contém o serviço responsável pelas operações relacionadas à entidade `Endereco`.
+
+#### Métodos:
+
+- `salvar(Endereco e)`: Este método permite salvar ou atualizar um endereço no banco de dados. Ele utiliza o `EntityManager` para realizar a operação de merge e retorna o endereço.
+
+### [Updated: Fornecedor.java](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/middleware/src/main/java/br/inatel/labs/labjpa/entity/Fornecedor.java)
+
+No arquivo `Fornecedor.java`, foi adicionada uma relação de 1:1 com a entidade `Endereco`. Esta associação permite que um fornecedor tenha um único endereço relacionado.
+
+### Teste do PrePersist para geração do UUID automático
+![testLoadProduct](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/documentation/testPrePersist.png)
