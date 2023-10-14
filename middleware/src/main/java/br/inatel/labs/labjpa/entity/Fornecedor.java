@@ -1,5 +1,7 @@
 package br.inatel.labs.labjpa.entity;
 
+import br.inatel.labs.labjpa.entity.Endereco;
+
 import java.util.List;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -10,6 +12,9 @@ public class Fornecedor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @OneToOne
+    private Endereco endereco;
 
     @NotNull
     @Size(min = 2, max = 200)
