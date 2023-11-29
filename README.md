@@ -307,3 +307,44 @@ Essas atualizações no projeto tornam o acesso ao banco de dados mais eficiente
 
 ### Testes após a inclusão dos repositórios gerenciados pelo JPA
 ![testLoadProduct](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/documentation/testDTORepository.png)
+
+--- 
+
+# Laboratório de REST:
+## Aula 5:
+### Implementação básica para testes:
+![basicRESTUML](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/documentation/helloControllerUML.drawio.png)
+
+### [HelloController.java](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/rest/src/main/java/br/inatel/labs/labrest/server/controller/HelloController.java)
+
+Este arquivo representa um controlador REST chamado `HelloController`. Este controlador está mapeado para o endpoint `/hello`.
+
+#### Método:
+
+- `processarGetHello()`: Este método está mapeado para uma requisição GET no endpoint `/hello`. Ele cria uma nova instância de `MyMessage`, define seu campo `info` para "Olá mundo REST" e retorna essa instância. Este método é usado para demonstrar uma simples interação RESTful.
+
+#### Anotações:
+
+- `@RestController`: Esta anotação é usada para marcar a classe como um controlador REST no Spring, significando que ela está pronta para processar requisições HTTP que chegam.
+
+- `@RequestMapping("hello")`: Esta anotação é usada para mapear este controlador para o endpoint `/hello`.
+
+- `@GetMapping`: Esta anotação é usada para mapear o método `processarGetHello()` para uma requisição GET no endpoint `/hello`.
+
+### [MyMessage.java](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/rest/src/main/java/br/inatel/labs/labrest/server/controller/MyMessage.java)
+
+Esta classe representa uma mensagem simples com um campo `info` do tipo `String`.
+
+#### Campo:
+
+- `info`: Este é um campo privado do tipo `String`. Ele armazena a informação que a instância de `MyMessage` carrega.
+
+#### Métodos:
+
+- `getInfo()`: Este método retorna o valor atual do campo `info`.
+
+- `setInfo(String info)`: Este método recebe um parâmetro do tipo `String` e define o valor do campo `info` para o valor passado como parâmetro.
+
+
+### Testes acessando o endpoint /hello
+![testLoadEndpoint](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/documentation/firstExampleRest.png)
