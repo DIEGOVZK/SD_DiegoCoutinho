@@ -528,3 +528,16 @@ Esta classe é responsável por criar um novo produto e fazer uma requisição P
     - Imprime o `produtoCriado` no console.
 
     - Imprime "Fim da execução" no console.
+
+### Testes:
+A imagem abaixo representa o resultado de uma requisição GET para o endpoint `/produtos` através do método dentro da aplicação de cliente. O resultado é uma lista de produtos em formato JSON.
+![GetFlux](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/documentation/testGetClientREST.png)
+
+Após isso, realizou-se o teste no caminho com o id 1, e o resultado foi o seguinte:
+![GetFluxByIDOne](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/documentation/testGetClientRESTSingle.png)
+
+Ao buscar por um ID out of range, o resultado é um erro. Então realizou-se a imlementação de um handler para exeções, e o resultado foi o seguinte:
+![GetFluxByIDOneWErros](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/documentation/testGetClientRESTSingleWithError.png)
+
+Depois, realizou-se o teste para a criação de um novo produto, e o resultado foi o seguinte:
+![PostFlux](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/documentation/testCreateClientREST.png)
