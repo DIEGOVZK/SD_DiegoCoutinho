@@ -449,7 +449,82 @@ Ao buscar por um ID out of range, o resultado é um erro. Então realizou-se a i
 Após editar o application.properties para remover o Stack Trace, o resultado foi o seguinte:
 ![GetOutOFBoundsNoStack](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/documentation/aposRemoverStackTrace.png)
 
-## Laboratório de REST parte 2:  
+---  
+
+## Laboratório de REST parte 2 (continuação):  
 ## Aula 6:  
 
+### [ProdutoDTO.java](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/client/src/main/java/br/inatel/labs/labrest/client/dto/ProdutoDTO.java)
 
+Esta classe representa um objeto de transferência de dados (DTO) de produto com um `id`, uma `descricao` e um `preco`.
+
+#### Campos:
+
+- `id`: Este é um campo privado do tipo `Long`. Ele armazena o identificador único do produto.
+
+- `descricao`: Este é um campo privado do tipo `String`. Ele armazena a descrição do produto.
+
+- `preco`: Este é um campo privado do tipo `BigDecimal`. Ele armazena o preço do produto.
+
+#### Métodos:
+
+- `getId()`, `getDescricao()`, `getPreco()`: Estes métodos são getters que retornam o valor dos campos `id`, `descricao` e `preco`, respectivamente.
+
+- `setId(Long id)`, `setDescricao(String descricao)`, `setPreco(BigDecimal preco)`: Estes métodos são setters que definem o valor dos campos `id`, `descricao` e `preco`, respectivamente.
+
+- `hashCode()`: Este método sobrescreve o método `hashCode` da classe `Object`. Ele retorna um valor de hash para o objeto, que é baseado no campo `id`.
+
+- `equals(Object object)`: Este método sobrescreve o método `equals` da classe `Object`. Ele verifica se o objeto dado é igual a este objeto com base no campo `id`.
+
+### [WebClientGetFluxProduto.java](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/client/src/main/java/br/inatel/labs/labrest/client/WebClientGetFluxProduto.java)
+
+Esta classe é responsável por fazer uma requisição GET para o endpoint `/produto` e receber uma lista de produtos.
+
+#### Método principal:
+
+- `main(String[] args)`: Este é o método principal que é executado quando a classe é iniciada.
+
+  - Cria uma lista vazia de `ProdutoDTO` chamada `listaProdutoDTOs`.
+
+  - Cria um `Flux<ProdutoDTO>` chamado `fluxProdutoDTO` que faz uma requisição GET para o endpoint `/produto` e converte a resposta em um fluxo de `ProdutoDTO`.
+
+  - Subscreve-se ao `fluxProdutoDTO` e adiciona cada `ProdutoDTO` recebido à `listaProdutoDTOs`.
+
+  - Bloqueia a execução até que o `fluxProdutoDTO` seja concluído.
+
+  - Imprime a lista de `ProdutoDTO` recebida.
+
+
+### [WebClientGetMonoProdutoPeloId.java](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/client/src/main/java/br/inatel/labs/labrest/client/WebClientGetMonoProdutoPeloId.java)
+
+Esta classe é responsável por fazer uma requisição GET para o endpoint `/produto/{id}` e receber um produto específico pelo seu ID.
+
+#### Método principal:
+
+- `main(String[] args)`: Este é o método principal que é executado quando a classe é iniciada.
+
+    - Cria um `Mono<ProdutoDTO>` chamado `monoProdutoDTO` que faz uma requisição GET para o endpoint `/produto/{id}` com o ID do produto desejado e converte a resposta em um `ProdutoDTO`.
+
+    - Bloqueia a execução até que o `Mono<ProdutoDTO>` seja concluído e armazena o resultado em `produtoDTO`.
+
+    - Imprime o `produtoDTO` no console.
+
+    - Em caso de exceção `WebClientResponseException`, imprime o código de status e a mensagem da exceção.
+
+    - Imprime "Fim da execução" no console.
+
+### [WebClientPostProduto.java](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/client/src/main/java/br/inatel/labs/labrest/client/WebClientPostProduto.java)
+
+Esta classe é responsável por criar um novo produto e fazer uma requisição POST para o endpoint `/produto`.
+
+#### Método principal:
+
+- `main(String[] args)`: Este é o método principal que é executado quando a classe é iniciada.
+
+    - Cria um novo objeto `ProdutoDTO` chamado `novoProduto` e define seus campos `descricao` e `preco`.
+
+    - Cria um `ProdutoDTO` chamado `produtoCriado` que faz uma requisição POST para o endpoint `/produto` com `novoProduto` como corpo da requisição e converte a resposta em um `ProdutoDTO`.
+
+    - Imprime o `produtoCriado` no console.
+
+    - Imprime "Fim da execução" no console.
