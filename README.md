@@ -351,3 +351,83 @@ Esta classe representa uma mensagem simples com um campo `info` do tipo `String`
 ### Implementação do sistema de produtos:
 ![RESTUMLProdutoUm](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/documentation/controllerServiceModel.drawio.png)
 
+### [ProdutoService.java](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/rest/src/main/java/br/inatel/labs/labrest/server/service/ProdutoService.java)
+
+Esta classe é um serviço que gerencia uma lista de produtos. Ela é marcada com a anotação `@Service`, indicando que é um componente de serviço no Spring.
+
+#### Campo:
+
+- `produtos`: Este é um campo privado que armazena uma lista de produtos. Ele é inicializado como um `ArrayList` de `Produto`.
+
+#### Método:
+
+- `setup()`: Este método é marcado com a anotação `@PostConstruct`, indicando que deve ser executado após a injeção de dependência pelo Spring. Ele adiciona três produtos à lista de produtos.
+
+- `findAll()`: Este método retorna a lista completa de produtos.
+
+- `findById(Long id)`: Este método recebe um `id` como parâmetro e retorna um `Optional` que pode conter o produto com o `id` correspondente. Se nenhum produto com o `id` fornecido for encontrado, o `Optional` estará vazio.
+
+#### Anotações:
+
+- `@Service`: Esta anotação é usada para marcar a classe como um componente de serviço no Spring.
+
+- `@PostConstruct`: Esta anotação é usada para marcar o método `setup()` para ser executado após a injeção de dependência pelo Spring.
+
+### [ProdutoController.java](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/rest/src/main/java/br/inatel/labs/labrest/server/controller/ProdutoController.java)
+
+Esta classe é um controlador REST que gerencia as operações HTTP relacionadas aos produtos. Ela é mapeada para o endpoint `/produto`.
+
+#### Campo:
+
+- `service`: Este é um campo privado do tipo `ProdutoService`. Ele é injetado automaticamente pelo Spring (anotação `@Autowired`).
+
+#### Métodos:
+
+- `getProdutos()`: Este método está mapeado para uma requisição GET no endpoint `/produto`. Ele retorna uma lista de todos os produtos.
+
+- `getProdutoById(Long produtoId)`: Este método está mapeado para uma requisição GET no endpoint `/produto/{id}`. Ele recebe um `id` de produto como parâmetro e retorna o produto correspondente. Se nenhum produto com o `id` fornecido for encontrado, uma exceção `ResponseStatusException` com o status HTTP `NOT_FOUND` é lançada.
+
+#### Anotações:
+
+- `@RestController`: Esta anotação é usada para marcar a classe como um controlador REST no Spring.
+
+- `@RequestMapping("produto")`: Esta anotação é usada para mapear este controlador para o endpoint `/produto`.
+
+- `@Autowired`: Esta anotação é usada para injetar automaticamente o `ProdutoService` no controlador.
+
+- `@GetMapping` e `@GetMapping("/{id}")`: Estas anotações são usadas para mapear os métodos `getProdutos()` e `getProdutoById(Long produtoId)` para requisições GET nos endpoints `/produto` e `/produto/{id}`, respectivamente.
+
+### [Produto.java](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/rest/src/main/java/br/inatel/labs/labrest/server/model/Produto.java)
+
+Esta classe representa um produto com um `id`, uma `descricao` e um `preco`.
+
+#### Campos:
+
+- `id`: Este é um campo privado do tipo `Long`. Ele armazena o identificador único do produto.
+
+- `descricao`: Este é um campo privado do tipo `String`. Ele armazena a descrição do produto.
+
+- `preco`: Este é um campo privado do tipo `BigDecimal`. Ele armazena o preço do produto.
+
+#### Construtores:
+
+- `Produto(Long id, String descricao, BigDecimal preco)`: Este construtor aceita três parâmetros e inicializa os campos `id`, `descricao` e `preco` com os valores fornecidos.
+
+- `Produto()`: Este é o construtor padrão sem parâmetros.
+
+#### Métodos:
+
+- `getId()`, `getDescricao()`, `getPreco()`: Estes métodos são getters que retornam o valor dos campos `id`, `descricao` e `preco`, respectivamente.
+
+- `setId(Long id)`, `setDescricao(String descricao)`, `setPreco(BigDecimal preco)`: Estes métodos são setters que definem o valor dos campos `id`, `descricao` e `preco`, respectivamente.
+
+### Testes:
+A imagem abaixo representa o resultado de uma requisição GET para o endpoint `/produtos`. O resultado é uma lista de produtos em formato JSON.
+![GetBrowserBasic](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/documentation/addedMockedObjectsTestBrowser.png)
+![GetBrowserBasic](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/documentation/addedMockedObjects.png)
+
+Após isso, realizou-se o teste no caminho com o id 1, e o resultado foi o seguinte:
+![GetBrowserBasicIdOne](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/documentation/buscaProdutoByIdOne.png)
+
+Ao buscar por um ID out of range, o resultado é um erro. Então realizou-se a imlementação da resposta cujo retorno é 404, com `throw new ResponseStatusException(HttpStatus.NOT_FOUND, errMsg)`, e o resultado foi o seguinte:
+![GetOutOFBounds](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/documentation/BuscaPeloProdutoIdErroredByIdOutOfBounds.png)
