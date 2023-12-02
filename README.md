@@ -445,3 +445,9 @@ Após isso, realizou-se o teste no caminho com o id 1, e o resultado foi o segui
 
 Ao buscar por um ID out of range, o resultado é um erro. Então realizou-se a imlementação da resposta cujo retorno é 404, com `throw new ResponseStatusException(HttpStatus.NOT_FOUND, errMsg)`, e o resultado foi o seguinte:
 ![GetOutOFBounds](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/documentation/BuscaPeloProdutoIdErroredByIdOutOfBounds.png)
+
+Após editar o application.properties para remover o Stack Trace, o resultado foi o seguinte:
+![GetOutOFBoundsNoStack](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/documentation/aposRemoverStackTrace.png)
+
+## Laboratório de REST parte 2:  
+## Aula 6:  
