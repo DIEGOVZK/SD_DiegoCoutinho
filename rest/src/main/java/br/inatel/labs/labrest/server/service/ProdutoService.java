@@ -1,8 +1,9 @@
 package br.inatel.labs.labrest.server.service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Optional;
+import java.util.ArrayList;
 
 import br.inatel.labs.labrest.server.model.Produto;
 import jakarta.annotation.PostConstruct;
@@ -25,9 +26,27 @@ public class ProdutoService {
     public List<Produto> findAll() {
         return this.produtos;
     }
+    
+    // Parte CRUD: Create, Read, Update, Delete
 
     public Optional<Produto> findById(Long id) {
         return this.produtos.stream().filter(p -> p.getId().equals(id)).findFirst();
     }
-    
+
+    public Produto create(Produto produto) {
+        long id = new Random().nextLong();
+        produto.setId(id);
+        this.produtos.add(produto);
+        return produto;
+    }
+
+    public void update(Produto produto) {
+        this.produtos.removeIf(p -> p.getId().equals(produto.getId()));
+        this.produtos.add(produto);
+    }
+
+    public void delete(Long id) {
+        this.produtos.removeIf(p -> p.getId().equals(id));
+    }
+
 }
