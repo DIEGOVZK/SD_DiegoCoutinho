@@ -345,6 +345,9 @@ Esta classe representa uma mensagem simples com um campo `info` do tipo `String`
 
 - `setInfo(String info)`: Este método recebe um parâmetro do tipo `String` e define o valor do campo `info` para o valor passado como parâmetro.
 
-
 ### Testes acessando o endpoint /hello
 ![testLoadEndpoint](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/documentation/firstExampleRest.png)
+
+### Implementação do sistema de produtos:
+![RESTUMLProdutoUm](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/documentation/controllerServiceModel.drawio.png)
+
