@@ -359,13 +359,19 @@ Esta classe é um serviço que gerencia uma lista de produtos. Ela é marcada co
 
 - `produtos`: Este é um campo privado que armazena uma lista de produtos. Ele é inicializado como um `ArrayList` de `Produto`.
 
-#### Método:
+#### Métodos:
 
 - `setup()`: Este método é marcado com a anotação `@PostConstruct`, indicando que deve ser executado após a injeção de dependência pelo Spring. Ele adiciona três produtos à lista de produtos.
 
 - `findAll()`: Este método retorna a lista completa de produtos.
 
 - `findById(Long id)`: Este método recebe um `id` como parâmetro e retorna um `Optional` que pode conter o produto com o `id` correspondente. Se nenhum produto com o `id` fornecido for encontrado, o `Optional` estará vazio.
+
+- `create(Produto produto)`: Este método recebe um objeto `Produto` como parâmetro, atribui um `id` aleatório ao produto, adiciona o produto à lista de produtos e retorna o produto.
+
+- `update(Produto produto)`: Este método recebe um objeto `Produto` como parâmetro, remove qualquer produto existente com o mesmo `id` da lista de produtos e adiciona o novo produto à lista.
+
+- `delete(Long id)`: Este método recebe um `id` como parâmetro e remove o produto com o `id` correspondente da lista de produtos.
 
 #### Anotações:
 
@@ -387,6 +393,12 @@ Esta classe é um controlador REST que gerencia as operações HTTP relacionadas
 
 - `getProdutoById(Long produtoId)`: Este método está mapeado para uma requisição GET no endpoint `/produto/{id}`. Ele recebe um `id` de produto como parâmetro e retorna o produto correspondente. Se nenhum produto com o `id` fornecido for encontrado, uma exceção `ResponseStatusException` com o status HTTP `NOT_FOUND` é lançada.
 
+- `postProduto(Produto produto)`: Este método está mapeado para uma requisição POST no endpoint `/produto`. Ele recebe um objeto `Produto` como corpo da requisição, cria um novo produto e retorna o produto criado. Este método retorna o status HTTP `CREATED`.
+
+- `putProduto(Produto produto)`: Este método está mapeado para uma requisição PUT no endpoint `/produto`. Ele recebe um objeto `Produto` como corpo da requisição e atualiza o produto correspondente. Este método retorna o status HTTP `NO_CONTENT`.
+
+- `deleteProduto(Long produtoId)`: Este método está mapeado para uma requisição DELETE no endpoint `/produto/{id}`. Ele recebe um `id` de produto como parâmetro e deleta o produto correspondente. Este método retorna o status HTTP `NO_CONTENT`.
+
 #### Anotações:
 
 - `@RestController`: Esta anotação é usada para marcar a classe como um controlador REST no Spring.
@@ -395,7 +407,9 @@ Esta classe é um controlador REST que gerencia as operações HTTP relacionadas
 
 - `@Autowired`: Esta anotação é usada para injetar automaticamente o `ProdutoService` no controlador.
 
-- `@GetMapping` e `@GetMapping("/{id}")`: Estas anotações são usadas para mapear os métodos `getProdutos()` e `getProdutoById(Long produtoId)` para requisições GET nos endpoints `/produto` e `/produto/{id}`, respectivamente.
+- `@GetMapping`, `@PostMapping`, `@PutMapping`, `@RequestMapping`: Estas anotações são usadas para mapear os métodos para as respectivas requisições HTTP nos endpoints correspondentes.
+
+- `@ResponseStatus`: Esta anotação é usada para definir o status HTTP retornado pelos métodos `postProduto(Produto produto)`, `putProduto(Produto produto)` e `deleteProduto(Long produtoId)`.
 
 ### [Produto.java](https://github.com/DIEGOVZK/SD_DiegoCoutinho/blob/main/rest/src/main/java/br/inatel/labs/labrest/server/model/Produto.java)
 
