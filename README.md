@@ -451,3 +451,5 @@ Após editar o application.properties para remover o Stack Trace, o resultado fo
 
 ## Laboratório de REST parte 2:  
 ## Aula 6:  
+
+
